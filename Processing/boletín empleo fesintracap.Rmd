@@ -1,7 +1,7 @@
 ---
 title: "BOLETÍN TRIMESTRE JULIO-SEPTIEMBRE 2020"
 author: "OBSERVATORIO CALIDAD DEL EMPLEO TRABAJADORAS DE CASA PARTICULAR"
-date: "Chile. Edición nº 3"
+date: "Chile. Edición nº 4"
 output:
   pdf_document:
     latex_engine: xelatex
@@ -35,8 +35,8 @@ knit_hooks$set(inline = function(x) {
 
 ```{r include=FALSE, message = FALSE, warning = FALSE}
 ## Anotar cuestiones generales
-mes_central<-"agosto"
-n_boletin<-"tercero"
+mes_central<-"septiembre"
+n_boletin<-"cuarto"
 
 ```
 
@@ -138,7 +138,7 @@ inf<-inf %>% mutate(t=ymd(paste(ano,"-",mes,"-",1,sep="")))
 
 Como principales resultados se pueden destacar:
 
-> En un año las trabajadoras de casa particular ocupadas han disminuido en prácticamente la mitad por efecto del COVID-19 (`r round((((round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-12,12])*1000)))/(round(as.numeric(mam[nrow(mam)-12,12])*1000)))*100,1)`%). Si a mediados de 2019 estas eran `r round(as.numeric(mam[nrow(mam)-12,12])*1000)` a lo largo de Chile, actualmente estas llegan a solamente a `r round(as.numeric(mam[nrow(mam),12])*1000)`. Respecto al trimestre anterior, se observa un leve aumento en la ocupación (`r round((((round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-1,12])*1000)))/(round(as.numeric(mam[nrow(mam)-1,12])*1000)))*100,1)`%). 
+> En un año las trabajadoras de casa particular ocupadas han disminuido en prácticamente la mitad por efecto del COVID-19 (`r round((((round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-12,12])*1000)))/(round(as.numeric(mam[nrow(mam)-12,12])*1000)))*100,1)`%). Si a mediados de 2019 estas eran `r round(as.numeric(mam[nrow(mam)-12,12])*1000)` a lo largo de Chile, actualmente estas llegan a solamente a `r round(as.numeric(mam[nrow(mam),12])*1000)`. Respecto al trimestre anterior, se observa una leve disminución en la ocupación (`r round((((round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-1,12])*1000)))/(round(as.numeric(mam[nrow(mam)-1,12])*1000)))*100,1)`%). 
 
 > 6 de cada 10 trabajadoras de casa particular informales perdieron su trabajo en el último año, mientras que solamente 4 de cada 10 formales lo hicieron. Después de años insistiendo en la necesidad de reducir la alta informalidad en el sector (cerca de la mitad de las trabajadoras no tenía contrato ni cotizaba para la seguridad social), por efecto del COVID-19 la informalidad baja. Esta reducción no se debe a buenas políticas públicas o la formalización del trabajo, más bien son el resultado de la ausencia de protecciones.
 
@@ -160,11 +160,11 @@ g1<-mam %>%
                breaks='1 years') + labs(x="Tiempo",
        y = "Trabajadoras",
        caption = "Elaboración propia en base a Encuesta Nacional de Empleo del INE") +
-  geom_text_repel(aes(label=ifelse(trimestre=="Jul - Sep", format(round(trabajadores), big.mark = ".", scientific = FALSE),"")),
+  geom_text_repel(aes(label=ifelse(trimestre=="Ago - Oct", format(round(trabajadores), big.mark = ".", scientific = FALSE),"")),
             vjust=-3,colour="black")
 
 ggsave(plot = g1,
-  filename = "../Output/Gráficos/Gráfico1_JAS.png",
+  filename = "../Output/Gráficos/Gráfico1_ASO.png",
   device = "png",
   dpi = "retina",
   units = "cm",
@@ -174,9 +174,9 @@ ggsave(plot = g1,
 ```
 
 
-Desde `r mes_central` de 2019 a `r mes_central` de 2020 las trabajadoras ocupadas en el sector bajan en un `r round((((round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-12,12])*1000)))/(round(as.numeric(mam[nrow(mam)-12,12])*1000)))*100,1)`%. En otras palabras, `r round(as.numeric(mam[nrow(mam),12])*1000)-round(as.numeric(mam[nrow(mam)-12,12])*1000)` trabajadoras perdieron el empleo en un año (Gráfico 1). La tasa de disminución de las ocupadas puertas adentro (color verde) y puertas afuera (color azul) es similar en el último año, cerca de la mitad de los empleos en los dos sub sectores se perdieron. Actualmente a nivel nacional se registran `r round(as.numeric(mam[nrow(mam),14])*1000)` trabajadores puertas adentro y `r round(as.numeric(mam[nrow(mam),13])*1000)` trabajadoras puertas afuera trabajando. En el presente trimestre se comienza a observar una recuperación del empleo en el sector, en tanto este crece en `r (round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-3,12])*1000))` trabajadoras respecto de junio (`r round((((round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-3,12])*1000)))/(round(as.numeric(mam[nrow(mam)-3,12])*1000)))*100,1)`%).
+Desde `r mes_central` de 2019 a `r mes_central` de 2020 las trabajadoras ocupadas en el sector bajan en un `r round((((round(as.numeric(mam[nrow(mam),12])*1000))-(round(as.numeric(mam[nrow(mam)-12,12])*1000)))/(round(as.numeric(mam[nrow(mam)-12,12])*1000)))*100,1)`%. En otras palabras, `r round(as.numeric(mam[nrow(mam),12])*1000)-round(as.numeric(mam[nrow(mam)-12,12])*1000)` trabajadoras perdieron el empleo en un año (Gráfico 1). La tasa de disminución de las ocupadas puertas adentro (color verde) y puertas afuera (color azul) es similar en el último año, cerca de la mitad de los empleos en los dos sub sectores se perdieron. Actualmente a nivel nacional se registran `r round(as.numeric(mam[nrow(mam),14])*1000)` trabajadores puertas adentro y `r round(as.numeric(mam[nrow(mam),13])*1000)` trabajadoras puertas afuera trabajando. En el presente trimestre se comienza se deja de observar la recuperación del empleo en el sector, en tanto este baja en `r (round(as.numeric(mam[nrow(mam)-1,12])*1000))-(round(as.numeric(mam[nrow(mam),12])*1000))` trabajadoras respecto de agosto (`r round((((round(as.numeric(mam[nrow(mam)-1,12])*1000))-(round(as.numeric(mam[nrow(mam),12])*1000)))/(round(as.numeric(mam[nrow(mam)-1,12])*1000)))*100,1)`%).
 
-![Número de trabajadoras de casa particular ocupadas desde 2010 a 2020. Total, puertas adentro y puertas afuera](../Output/Gráficos/Gráfico1_JAS.png)
+![Número de trabajadoras de casa particular ocupadas desde 2010 a 2020. Total, puertas adentro y puertas afuera](../Output/Gráficos/Gráfico1_ASO.png)
 
 
 \newpage
@@ -198,11 +198,11 @@ g2<-inf %>%
   labs(x="Tiempo",
        y = "Trabajadoras",
        caption = "Elaboración propia en base a Encuesta Nacional de Empleo del INE") +
-  geom_text_repel(aes(label=ifelse(trimestre%in%c("Jul - Sep","Dic - Feb"), format(round(trabajadores), big.mark = ".", scientific = FALSE),"")),
+  geom_text_repel(aes(label=ifelse(trimestre%in%c("Ago - Oct","Ene - Mar"), format(round(trabajadores), big.mark = ".", scientific = FALSE),"")),
                   vjust=-3,colour="black")
 
 ggsave(plot = g2,
-  filename = "../Output/Gráficos/Gráfico2_JAS.png",
+  filename = "../Output/Gráficos/Gráfico2_ASO.png",
   device = "png",
   dpi = "retina",
   units = "cm",
@@ -214,7 +214,7 @@ ggsave(plot = g2,
 
 En el último año 6 de cada 10 trabajadoras de casa particular informales perdieron su trabajo en un año (`r round((as.numeric(inf[nrow(inf)-12,15])-as.numeric(inf[nrow(inf),15]))/as.numeric(inf[nrow(inf)-12,15])*100,1)`%), pasando de `r round(as.numeric(inf[nrow(inf)-12,15])*1000)` trabajadoras a `r round(as.numeric(inf[nrow(inf),15])*1000)` trabajadoras. En contrastre, solamente 4 de cada 10 trabajadoras formales (`r round((as.numeric(inf[nrow(inf)-12,8])-as.numeric(inf[nrow(inf),8]))/as.numeric(inf[nrow(inf)-12,8])*100,1)`%) perdieron su empleo en el último año (pasaron de `r round(as.numeric(inf[nrow(inf)-12,8])*1000)` a `r round(as.numeric(inf[nrow(inf),15])*1000)`). Después de años insistiendo en la necesidad de reducir la alta informalidad en el sector, por efecto del COVID-19 y la ausencia de políticas de protección reales al empleo, la informalidad pasa de afectar a más del 50% de las trabajadoras a solamente un `r round((as.numeric(inf[nrow(inf),15])/(as.numeric(inf[nrow(inf),8])+as.numeric(inf[nrow(inf),15])))*100,1)`%.
 
-![Número de trabajadoras de casa particular formales e informales entre 2018 y 2020](../Output/Gráficos/Gráfico2_JAS.png)
+![Número de trabajadoras de casa particular formales e informales entre 2018 y 2020](../Output/Gráficos/Gráfico2_ASO.png)
 
 # Autores
 

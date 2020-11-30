@@ -8,7 +8,9 @@ Esto, con el objeto de promover el empleo de calidad y la seguridad económica d
 ## Autores
 
 **Nicolás Ratto Ribó**
-Magíster en Ciencias Sociales Mención Sociología de la Modernización. Sociólogo, Universidad de Chile
+Sociólogo y magíster en ciencias sociales, Universidad de Chile
+
+GitHub: [github.com/nicolasrattor](github.com/nicolasrattor)
 
 **Valentina Andrade de la Horra**
 Licenciada en Sociología, Universidad de Chile.
