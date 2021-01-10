@@ -5,6 +5,8 @@ Los informes tienen como objetivo  monitorear la situación y evolución del emp
 
 Esto, con el objeto de promover el empleo de calidad y la seguridad económica de las trabajadoras de casa particular en Chile frente a los impactos que ha generado la pandemia del COVID- 19 sobre el gremio.
 
+![](Datos informalidad 2010-2020/Output/Gráfico_informales_porcentaje.png)
+
 ## Autores
 
 **Nicolás Ratto Ribó**
@@ -16,3 +18,16 @@ GitHub: [github.com/nicolasrattor](github.com/nicolasrattor)
 Licenciada en Sociología, Universidad de Chile.
 
 GitHub: [github.com/valentinaanadrade](github.com/valentinaanadrade)
+
+## Informes
+
+[Informe N°5. Septiembre - Noviembre](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(5)%20boletin-empleo-fesintracap-SON2020.pdf). 
+
+[Informe N°4. Agosto - Octubre](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(4)%20bolet%C3%ADn-empleo-fesintracap%20ASO2020.pdf). 
+
+[Informe N°3. Julio - Septiembre](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(3)%20bolet%C3%ADn-empleo-fesintracap%20JAS2020.pdf). 
+
+[Informe N°2. Junio - Agosto](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(2)%20bolet%C3%ADn-empleo-fesintracap%20JJA2020.pdf). 
+
+[Informe N°1. Mayo - Julio](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(1)%20bolet%C3%ADn-empleo-fesintracap%20MJJ2020.pdf). 
+
