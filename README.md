@@ -5,7 +5,7 @@ Los informes tienen como objetivo  monitorear la situación y evolución del emp
 
 Esto, con el objeto de promover el empleo de calidad y la seguridad económica de las trabajadoras de casa particular en Chile frente a los impactos que ha generado la pandemia del COVID- 19 sobre el gremio.
 
-![](Datos informalidad 2010-2020/Output/Gráfico_informales_porcentaje.png)
+![](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/row/master/Datos%20informalidad%202010-2020/Output/Gr%C3%A1fico_informales_porcentaje.png)
 
 ## Autores
 
