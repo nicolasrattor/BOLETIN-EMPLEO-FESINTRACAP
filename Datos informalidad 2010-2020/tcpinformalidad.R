@@ -125,7 +125,8 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point
        subtitle="Sobre el total de trabajadoras de servicio doméstico ocupadas en cada trimestre",
        x="Trimestres móviles", 
        y = "Porcentaje",
-       caption = "Línea roja indica entrada en vigencia de Ley 20.786.
+       caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020).
+                  Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea azul indica cambio de metodología. Desde ese punto cifras oficiales.
                   Línea morada indica inicio del COVID-19 en Chile.") +
   geom_text(aes(label = ifelse(mes_central %in% c(5,10), 
