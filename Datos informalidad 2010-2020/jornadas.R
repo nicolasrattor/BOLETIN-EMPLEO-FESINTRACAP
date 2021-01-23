@@ -61,36 +61,40 @@ base
 
 ## Exportar base
 library(writexl)
-write_xlsx(base,"Output/tcp_mujeres_extranjeras.xlsx", col_names = TRUE,format_headers = TRUE)
+write_xlsx(base,"Output/tcp_mujeres_partime.xlsx", col_names = TRUE,format_headers = TRUE)
 
 
 
 ## Gráfico
 library(ggrepel)
 library(scales)
+library(lubridate)
 
-base %>% ggplot(aes(x=trimestre,y=porcentaje_extranjeras))+geom_line()+geom_point()+theme_bw()+
-  labs(title="Porcentaje de trabajadoras de servicio doméstico extranjeras en Chile",
+l
+(2019-11-01)
+
+
+base %>% filter( trimestre < ymd(as.integer(20191201)) ) %>% 
+  ggplot(aes(x=trimestre,y=porcentaje_partime))+geom_line()+geom_point()+theme_bw()+
+  labs(title="Porcentaje de trabajadoras de servicio doméstico con jornada parcial en Chile",
        subtitle="Sobre el total de trabajadoras de servicio doméstico ocupadas en cada trimestre",
        x="Trimestres móviles", 
        y = "Porcentaje",
        caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020).
-                  Línea roja indica entrada en vigencia de Ley 20.786.
-                  Línea morada indica inicio del COVID-19 en Chile.") +
+                  En 2020 cambia la forma en que se pregunta por tipo de jornada, por lo que el año se excluye de análisis. 
+                  Línea roja indica promedio de trabajadoras con jornada parcial entre 2010 y 2019.") +
   geom_text_repel(aes(label = ifelse(mes_central %in% c(5,10), 
-                               format(paste0(round(porcentaje_extranjeras,3)*100,"%"),
+                               format(paste0(round(porcentaje_partime,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
           vjust=-0.4, colour = "black", size=3.0) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
-                     limits = c(0,0.4)) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
-  geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "red", size=1) +
-  geom_vline(xintercept=as.numeric(base$trimestre[122]), linetype="dashed", color = "purple", size=1)
+  geom_hline(aes(yintercept = mean(porcentaje_partime)),linetype="dashed", color="red" )
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_extranjeras_porcentaje.png",
+       filename = "Output/Gráfico_partime_porcentaje.png",
        device = "png",
        dpi = "retina",
        units = "cm",
