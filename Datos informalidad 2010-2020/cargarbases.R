@@ -154,6 +154,8 @@ ene2020_06<-read_sav("Input/ene-2020-06-mjj.sav")
 ene2020_07<-read_sav("Input/ene-2020-07-jja.sav")
 ene2020_08<-read_sav("Input/ene-2020-08-jas.sav")
 
+#get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
+
 save(ene2010_02,
      ene2010_03,
      ene2010_04,
@@ -282,4 +284,5 @@ save(ene2010_02,
      ene2020_07,
      ene2020_08,
      ene2020_09,
-     ene2020_10,file="Output/bases_INE_informalidad_2010-2020.Rdata")
+     ene2020_10,
+     ene2020_11, file="Output/bases_INE_informalidad_2010-2020.Rdata")

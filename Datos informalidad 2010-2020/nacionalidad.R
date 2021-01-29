@@ -70,6 +70,7 @@ write_xlsx(base,"Output/tcp_mujeres_extranjeras.xlsx", col_names = TRUE,format_h
 library(ggrepel)
 library(scales)
 
+names(base)
 base %>% ggplot(aes(x=trimestre,y=porcentaje_extranjeras))+geom_line()+geom_point()+theme_bw()+
   labs(title="Porcentaje de trabajadoras de servicio doméstico extranjeras en Chile",
        subtitle="Sobre el total de trabajadoras de servicio doméstico ocupadas en cada trimestre",
@@ -78,11 +79,12 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_extranjeras))+geom_line()+geom_poin
        caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020).
                   Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea morada indica inicio del COVID-19 en Chile.") +
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(5,10), 
-                               format(paste0(round(porcentaje_extranjeras,3)*100,"%"),
-                                scientific = FALSE),"")), 
-            position = position_dodge(0.9), 
-          vjust=-0.4, colour = "black", size=3.0) +
+ # geom_text_repel(aes(label = 
+ #                       ifelse(mes_central %in% c(5,11), 
+ #         format(paste0(round(porcentaje_extranjeras,3)*100,"%"),scientific = FALSE),
+ #                              "")), 
+ #                 position = position_dodge(0.9), 
+ #                 vjust=-0.4, colour = "black", size=3.0) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1),
                      limits = c(0,0.4)) +
   scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
