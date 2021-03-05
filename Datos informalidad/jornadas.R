@@ -3,6 +3,8 @@ library(tidyverse)
 
 ## Cargar bases
 get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
+get(load('Output/bases_INE_informalidad_2021.Rdata'))
+
 
 ## TCP mujeres
 ## De esta forma la ENE calcula a las TCP: 184.440

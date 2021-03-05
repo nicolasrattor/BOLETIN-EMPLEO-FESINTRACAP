@@ -3,6 +3,8 @@ library(tidyverse)
 
 ## Cargar bases
 get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
+get(load('Output/bases_INE_informalidad_2021.Rdata'))
+
 
 ## TCP mujeres
 ## De esta forma la ENE calcula a las TCP: 184.440
@@ -53,19 +55,17 @@ base<-ls() %>% as.data.frame()
 names(base)<-"periodo"
 base<-base %>% filter(periodo!="dfs")
 base<-base %>% mutate(tcp_mujeres=NA)
-base<-base %>% mutate(asalariadas_privadas_mujeres=NA)
 
 
 for (i in 1:nrow(base)){
   base[i,2]<-dfs[[i]] %>% as.data.frame() %>% filter(b5==3 & (b6==1|b6==2)) %>% filter(sexo==2) %>% select(fact_cal) %>% sum()
-  base[i,3]<-dfs[[i]] %>% as.data.frame() %>% filter(categoria_ocupacion==3) %>% filter(sexo==2) %>% select(fact_cal) %>% sum()
-  }
+}
 
 ## Dar año y mes
 base<-base %>% mutate(ano_trimestre=NA,mes_central=NA)
 for (i in 1:nrow(base)){
-  base[i,4]<-dfs[[i]] %>% as.data.frame() %>% select(ano_trimestre) %>% slice(1)
-  base[i,5]<-dfs[[i]] %>% as.data.frame() %>% select(mes_central) %>% slice(1)
+  base[i,3]<-dfs[[i]] %>% as.data.frame() %>% select(ano_trimestre) %>% slice(1)
+  base[i,4]<-dfs[[i]] %>% as.data.frame() %>% select(mes_central) %>% slice(1)
 }
 
 library(lubridate)
@@ -79,20 +79,11 @@ base %>% ggplot(aes(x=trimestre,y=tcp_mujeres))+geom_line()+geom_point()
 
 ## Informales
 base<-base %>% mutate(informales_tcp_mujeres=NA)
-base<-base %>% mutate(informales_asalariadas_mujeres=NA)
-base
 
 ## Informales desde JAS 2017 hasta SON 2020 (antes no hay variable ocup_form)
 for (i in 91:nrow(base)){
   
-  base[i,7]<- dfs[[i]] %>% filter(b5==3 & (b6==1|b6==2)) %>% filter(sexo==2) %>% 
-    filter(ocup_form==2) %>% select(fact_cal) %>% sum()
-  
-}
-
-for (i in 91:nrow(base)){
-  
-  base[i,8]<- dfs[[i]] %>% filter(categoria_ocupacion==3) %>% filter(sexo==2) %>% 
+  base[i,6]<- dfs[[i]] %>% filter(b5==3 & (b6==1|b6==2)) %>% filter(sexo==2) %>% 
     filter(ocup_form==2) %>% select(fact_cal) %>% sum()
   
 }
@@ -100,7 +91,7 @@ for (i in 91:nrow(base)){
 
 ## Informales desde 2010 hasta 2017 (antes no hay variable ocup_form)
 for (i in 1:90){
-  base[i,7]<- dfs[[i]] %>% 
+  base[i,6]<- dfs[[i]] %>% 
     filter(b5==3 & (b6==1|b6==2) & sexo==2) %>% 
     filter( 
       (b7_3==2 | b7_4==2) |
@@ -117,35 +108,13 @@ for (i in 1:90){
   
 }
 
-
-
-for (i in 1:90){
-  base[i,8]<- dfs[[i]] %>% 
-    filter(categoria_ocupacion==3 & sexo==2) %>% 
-    filter( 
-      (b7_3==2 | b7_4==2) |
-        (b8>=2 &  (b7_3==1 & (b7_4==88 | b7_4==99)) ) |
-        (b8>=2 &  (b7_4==1 & (b7_3==88 | b7_3==99)) ) |
-        (b8>=2 &  ( (b7_4==88|b7_4==99) & (b7_3==88 | b7_3==99)) )  |
-        
-        (b8==1 &  (b7_3==1 & (b7_4==88 | b7_4==99)) ) & (b11==4|b11>5) |
-        (b8==1 &  (b7_4==1 & (b7_3==88 | b7_3==99)) ) & (b11==4|b11>5) |
-        (b8==1 &  ( (b7_4==88|b7_4==99) & (b7_3==88 | b7_3==99)) ) & (b11==4|b11>5)
-      
-    ) %>% 
-    select(fact_cal) %>% sum()
-  
-}
-
-names(base)
-base<-base %>% mutate(porcentaje_tcp_informales=round(informales_tcp_mujeres/tcp_mujeres,3))
-base<-base %>% mutate(porcentaje_asalariadas_informales=round(informales_asalariadas_mujeres/asalariadas_privadas_mujeres,3))
+base<-base %>% mutate(porcentaje_informales=round(informales_tcp_mujeres/tcp_mujeres,3))
 
 
 
 ## Exportar base
 library(writexl)
-write_xlsx(base,"Output/tcp_mujeres_informalidad_asalariadas_privadas.xlsx", col_names = TRUE,format_headers = TRUE)
+write_xlsx(base,"Output/tcp_mujeres_informalidad.xlsx", col_names = TRUE,format_headers = TRUE)
 
 
 
@@ -153,37 +122,32 @@ write_xlsx(base,"Output/tcp_mujeres_informalidad_asalariadas_privadas.xlsx", col
 library(ggrepel)
 library(scales)
 
-base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informales),names_to = "porcentajes") %>% 
-
-  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+theme_bw()+
-  labs(
-    #title="Comparación de porcentaje de trabajadoras informales entre asalariadas servicio doméstico y sector privado",
-     #  subtitle="Sobre el total de trabajadoras de servicio doméstico y asalariadas privadas ocupadas en cada trimestre",
+base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point()+theme_bw()+
+  labs(title="Porcentaje de trabajadoras de servicio doméstico informales en Chile",
+       subtitle="Sobre el total de trabajadoras de servicio doméstico ocupadas en cada trimestre",
        x="Trimestres móviles", 
        y = "Porcentaje",
-       caption = "Línea roja indica entrada en vigencia de Ley 20.786.
+       caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020).
+                  Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea azul indica cambio de metodología. Desde ese punto cifras oficiales.
                   Línea morada indica inicio del COVID-19 en Chile.") +
-  scale_color_manual("Trabajadoras", values = c("purple","black"),labels = c("Asalariadas sector privado",
-                                                                             "Asalariadas Servicio doméstico")) + 
-  geom_text(aes(label = ifelse(mes_central %in% c(5,10), 
-                               format(paste0(round(value,3)*100,"%"),
+  geom_text(aes(label = ifelse(mes_central %in% c(6,12), 
+                               format(paste0(round(porcentaje_informales,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
           vjust=-0.4, colour = "black", size=3.0) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
-  scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),limits = c(0.3,0.6)) +
+  scale_x_date(labels = date_format("%Y-%m"),breaks='2 years') +
   geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "red", size=1) +
   geom_vline(xintercept=as.numeric(base$trimestre[91]), linetype="dashed", color = "blue", size=1) +
-  geom_vline(xintercept=as.numeric(base$trimestre[122]), linetype="dashed", color = "purple", size=1) +
-  theme(legend.position="bottom")
+  geom_vline(xintercept=as.numeric(base$trimestre[122]), linetype="dashed", color = "purple", size=1)
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_informales_porcentaje_comparado_sintitulo.png",
+       filename = "Output/Gráfico_informales_porcentaje.png",
        device = "png",
        dpi = "retina",
        units = "cm",
-       width = 25,
+       width = 35,
        height = 20)
 

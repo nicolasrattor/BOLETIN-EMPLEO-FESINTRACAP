@@ -8,6 +8,7 @@ library(scales)
 
 ## Cargar bases
 get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
+get(load('Output/bases_INE_informalidad_2021.Rdata'))
 
 
 
@@ -271,7 +272,7 @@ a %>% pivot_longer(c(porcentaje_adentro,porcentaje_extranjeras,porcentaje_partim
   scale_color_manual("Trabajadoras", values = c("purple","black","red"),labels = c("Puertas adentro",
                                                                              "Extranjeras",
                                                                              "Jornada parcial")) + 
-  geom_text(aes(label = ifelse(mes_central %in% c(5,10), 
+  geom_text(aes(label = ifelse(mes_central %in% c(6,12), 
                                format(paste0(round(value,3)*100,"%"),
                                       scientific = FALSE),"")), 
             position = position_dodge(0.9), 
