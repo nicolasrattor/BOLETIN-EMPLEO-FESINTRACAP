@@ -21,9 +21,11 @@ GitHub: [github.com/valentinaanadrade](github.com/valentinaanadrade)
 
 ## Informes
 
-[Informe N°7. Noviembre - Enero](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/blob/master/Processing/(7)%20bolet%C3%ADn-empleo-fesintracap-NDE2020-2021.pdf). 
+[Informe N°8. Diciembre - Febrero](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(8)%20bolet%C3%ADn-empleo-fesintracap-DEF2021.pdf). 
 
-[Informe N°6. Octubre - Diciembre](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/blob/master/Processing/(6)%20bolet%C3%ADn-empleo-fesintracap-OND2020.pdf). 
+[Informe N°7. Noviembre - Enero](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(7)%20bolet%C3%ADn-empleo-fesintracap-NDE2020-2021.pdf). 
+
+[Informe N°6. Octubre - Diciembre](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(6)%20bolet%C3%ADn-empleo-fesintracap-OND2020.pdf). 
 
 [Informe N°5. Septiembre - Noviembre](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(5)%20boletin-empleo-fesintracap-SON2020.pdf). 
 
