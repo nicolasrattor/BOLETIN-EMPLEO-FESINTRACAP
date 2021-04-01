@@ -123,20 +123,19 @@ library(ggrepel)
 library(scales)
 
 base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point()+theme_bw()+
-  labs(title="Porcentaje de trabajadoras de servicio doméstico informales en Chile",
-       subtitle="Sobre el total de trabajadoras de servicio doméstico ocupadas en cada trimestre",
+  labs(#title="Porcentaje de trabajadoras de servicio doméstico informales en Chile",
+       #subtitle="Sobre el total de trabajadoras de servicio doméstico ocupadas en cada trimestre",
        x="Trimestres móviles", 
        y = "Porcentaje",
-       caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020).
-                  Línea roja indica entrada en vigencia de Ley 20.786.
+       caption = "Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea azul indica cambio de metodología. Desde ese punto cifras oficiales.
                   Línea morada indica inicio del COVID-19 en Chile.") +
-  geom_text(aes(label = ifelse(mes_central %in% c(6,12), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6,12), 
                                format(paste0(round(porcentaje_informales,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
-          vjust=-0.4, colour = "black", size=3.0) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1),limits = c(0.3,0.6)) +
+          vjust=-0.4, colour = "black", size=4.0) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_x_date(labels = date_format("%Y-%m"),breaks='2 years') +
   geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "red", size=1) +
   geom_vline(xintercept=as.numeric(base$trimestre[91]), linetype="dashed", color = "blue", size=1) +
@@ -148,6 +147,34 @@ ggsave(plot = last_plot(),
        device = "png",
        dpi = "retina",
        units = "cm",
-       width = 35,
-       height = 20)
+       width = 30,
+       height = 25)
 
+
+base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point()+theme_bw()+
+  labs(#title="Porcentaje de trabajadoras de servicio doméstico informales en Chile",
+    #subtitle="Sobre el total de trabajadoras de servicio doméstico ocupadas en cada trimestre",
+    x="Trimestres móviles", 
+    y = "Porcentaje",
+    caption = "Marzo de 2015 entrada en vigencia de Ley 20.786.
+                Agosto de 2017 cambio de metodología. Desde ese punto cifras oficiales.
+                Marzo de 2020 inicio del COVID-19 en Chile.") +
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6,12), 
+                                     format(paste0(round(porcentaje_informales,3)*100,"%"),
+                                            scientific = FALSE),"")), 
+                  position = position_dodge(0.9), 
+                  vjust=-0.4, colour = "black", size=4.0) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  scale_x_date(labels = date_format("%Y-%m"),breaks='2 years') +
+  geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "#bbbbbb", size=1) +
+  geom_vline(xintercept=as.numeric(base$trimestre[91]), linetype="dashed", color = "#bbbbbb", size=1) +
+  geom_vline(xintercept=as.numeric(base$trimestre[122]), linetype="dashed", color = "#bbbbbb", size=1)
+
+
+ggsave(plot = last_plot(),
+       filename = "Output/Gráfico_informales_porcentaje_bn.png",
+       device = "png",
+       dpi = "retina",
+       units = "cm",
+       width = 30,
+       height = 25)

@@ -167,11 +167,11 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
                   Línea morada indica inicio del COVID-19 en Chile.") +
   scale_color_manual("Trabajadoras", values = c("purple","black"),labels = c("Asalariadas sector privado",
                                                                              "Asalariadas Servicio doméstico")) + 
-  geom_text(aes(label = ifelse(mes_central %in% c(6,12), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6,12), 
                                format(paste0(round(value,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
-          vjust=-0.4, colour = "black", size=3.0) +
+          vjust=-0.4, colour = "black", size=4.0) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
   geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "red", size=1) +
@@ -181,10 +181,43 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_informales_porcentaje_comparado_sintitulo.png",
+       filename = "Output/Gráfico_informales_porcentaje_comparado.png",
        device = "png",
        dpi = "retina",
        units = "cm",
-       width = 25,
-       height = 20)
+       width = 30,
+       height = 25)
 
+
+base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informales),names_to = "porcentajes") %>% 
+  
+  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+theme_bw()+
+  labs(
+    #title="Comparación de porcentaje de trabajadoras informales entre asalariadas servicio doméstico y sector privado",
+    #  subtitle="Sobre el total de trabajadoras de servicio doméstico y asalariadas privadas ocupadas en cada trimestre",
+    x="Trimestres móviles", 
+    y = "Porcentaje",
+    caption = "Marzo de 2015 entrada en vigencia de Ley 20.786.
+               Agosto de 2017 cambio de metodología. Desde ese punto cifras oficiales.
+              Marzo de 2020 inicio del COVID-19 en Chile.") +
+  scale_color_manual("Trabajadoras", values = c("#a3a3a3","black"),labels = c("Asalariadas sector privado",
+                                                                             "Asalariadas Servicio doméstico")) + 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6,12), 
+                                     format(paste0(round(value,3)*100,"%"),
+                                            scientific = FALSE),"")), 
+                  position = position_dodge(0.9), 
+                  vjust=-0.4, colour = "black", size=4.0) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
+  geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "#bbbbbb", size=1) +
+  geom_vline(xintercept=as.numeric(base$trimestre[91]), linetype="dashed", color = "#bbbbbb", size=1) +
+  geom_vline(xintercept=as.numeric(base$trimestre[122]), linetype="dashed", color = "#bbbbbb", size=1) +
+  theme(legend.position="bottom")
+
+ggsave(plot = last_plot(),
+       filename = "Output/Gráfico_informales_porcentaje_comparado_bn.png",
+       device = "png",
+       dpi = "retina",
+       units = "cm",
+       width = 30,
+       height = 25)
