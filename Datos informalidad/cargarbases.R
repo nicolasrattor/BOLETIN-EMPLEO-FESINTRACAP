@@ -290,8 +290,9 @@ save(ene2010_02,
 #get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
 
 
-
 #### Desde 2021
 ene2021_01<-read.csv("Input/ene2021_01.csv",sep = ";")
+ene2021_02<-read.csv("Input/ene2021_02.csv",sep = ";")
 
-save(ene2021_01, file="Output/bases_INE_informalidad_2021.Rdata")
+save(ene2021_01,
+     ene2021_02, file="Output/bases_INE_informalidad_2021.Rdata")

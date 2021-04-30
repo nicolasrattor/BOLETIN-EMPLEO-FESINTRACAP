@@ -154,9 +154,12 @@ write_xlsx(base,"Output/tcp_mujeres_informalidad_asalariadas_privadas.xlsx", col
 library(ggrepel)
 library(scales)
 
-base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informales),names_to = "porcentajes") %>% 
+#setup
+library(ggplot2)
 
-  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+theme_bw()+
+base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informales),
+                      names_to = "porcentajes") %>% 
+  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+
   labs(
     #title="Comparación de porcentaje de trabajadoras informales entre asalariadas servicio doméstico y sector privado",
      #  subtitle="Sobre el total de trabajadoras de servicio doméstico y asalariadas privadas ocupadas en cada trimestre",
@@ -167,11 +170,12 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
                   Línea morada indica inicio del COVID-19 en Chile.") +
   scale_color_manual("Trabajadoras", values = c("purple","black"),labels = c("Asalariadas sector privado",
                                                                              "Asalariadas Servicio doméstico")) + 
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(6,12), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(2), 
                                format(paste0(round(value,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
-          vjust=-0.4, colour = "black", size=4.0) +
+          vjust=-0.4, colour = "black", size=6.0) +
+  theme_bw()+
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
   geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "red", size=1) +
@@ -191,7 +195,7 @@ ggsave(plot = last_plot(),
 
 base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informales),names_to = "porcentajes") %>% 
   
-  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+theme_bw()+
+  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+
   labs(
     #title="Comparación de porcentaje de trabajadoras informales entre asalariadas servicio doméstico y sector privado",
     #  subtitle="Sobre el total de trabajadoras de servicio doméstico y asalariadas privadas ocupadas en cada trimestre",
@@ -202,11 +206,12 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
               Marzo de 2020 inicio del COVID-19 en Chile.") +
   scale_color_manual("Trabajadoras", values = c("#a3a3a3","black"),labels = c("Asalariadas sector privado",
                                                                              "Asalariadas Servicio doméstico")) + 
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(6,12), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(2), 
                                      format(paste0(round(value,3)*100,"%"),
                                             scientific = FALSE),"")), 
                   position = position_dodge(0.9), 
-                  vjust=-0.4, colour = "black", size=4.0) +
+                  vjust=-0.4, colour = "black", size=6.0) +
+  theme_bw()+
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
   geom_vline(xintercept=as.numeric(base$trimestre[62]), linetype="dashed", color = "#bbbbbb", size=1) +

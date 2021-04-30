@@ -258,26 +258,28 @@ a<-merge(a,c,by=c("trimestre","mes_central"))
 
 #### Gráfico ####
 
+library(ggplot2); theme_set(theme_bw(base_size = 20))
+
+
 a %>% pivot_longer(c(porcentaje_adentro,porcentaje_extranjeras,porcentaje_partime),names_to = "porcentajes") %>% 
   
-  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+theme_bw()+
-  labs(title="Comparación de porcentaje de trabajadoras puertas adentro, extranjeras y con jornada parcial",
-       subtitle="Cada subsector sobre el total de trabajadoras de servicio doméstico en cada trimestre",
+  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+
+  labs(#title="Comparación de porcentaje de trabajadoras puertas adentro, extranjeras y con jornada parcial",
+       #subtitle="Cada subsector sobre el total de trabajadoras de servicio doméstico en cada trimestre",
        x="Trimestres móviles", 
        y = "Porcentaje",
-       caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020) del INE.
-                  Línea roja indica entrada en vigencia de Ley 20.786.
+       caption = "Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea morada indica inicio del COVID-19 en Chile.
                   Desde 2020 cambia la forma de medición de la jornada parcial, por lo que la serie fue acortada") +
   scale_color_manual("Trabajadoras", values = c("purple","black","red"),labels = c("Puertas adentro",
                                                                              "Extranjeras",
                                                                              "Jornada parcial")) + 
-  geom_text(aes(label = ifelse(mes_central %in% c(6,12), 
-                               format(paste0(round(value,3)*100,"%"),
-                                      scientific = FALSE),"")), 
-            position = position_dodge(0.9), 
-            vjust=-0.4, colour = "black", size=3.0) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1),limits = c(0,0.4)) +
+#  geom_text_repel(aes(label = ifelse(mes_central %in% c(1), 
+#                               format(paste0(round(value,3)*100,"%"),
+#                                      scientific = FALSE),"")), 
+#            position = position_dodge(0.9), 
+#            vjust=-0.4, colour = "black", size=3.0) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),limits = c(0,0.38)) +
   scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
   geom_vline(xintercept=as.numeric(a$trimestre[62]), linetype="dashed", color = "red", size=1) +
   geom_vline(xintercept=as.numeric(a$trimestre[122]), linetype="dashed", color = "purple", size=1) +
@@ -289,6 +291,44 @@ ggsave(plot = last_plot(),
        device = "png",
        dpi = "retina",
        units = "cm",
-       width = 25,
-       height = 20)
+       width = 30,
+       height = 25)
+
+
+
+
+
+
+
+a %>% pivot_longer(c(porcentaje_adentro,porcentaje_extranjeras,porcentaje_partime),names_to = "porcentajes") %>% 
+  
+  ggplot(aes(x=trimestre,y=value,color=porcentajes))+geom_line()+geom_point()+
+  labs(#title="Comparación de porcentaje de trabajadoras puertas adentro, extranjeras y con jornada parcial",
+       #subtitle="Cada subsector sobre el total de trabajadoras de servicio doméstico en cada trimestre",
+       x="Trimestres móviles", 
+       y = "Porcentaje",
+       caption = "Marzo de 2015 entra en vigencia Ley 20.786.
+                  Marzo de 2020 inicio del COVID-19 en Chile.
+                  Desde 2020 cambia la forma de medición de la jornada parcial, por lo que la serie fue acortada") +
+  scale_color_manual("Trabajadoras", values = c("#E0E0E0","#a3a3a3","black"),labels = c("Puertas adentro",
+                                                                                   "Extranjeras",
+                                                                                   "Jornada parcial")) + 
+#  geom_text_repel(aes(label = ifelse(mes_central %in% c(1), 
+#                               format(paste0(round(value,3)*100,"%"),
+#                                      scientific = FALSE),"")), 
+#            position = position_dodge(0.9), 
+#            vjust=-0.4, colour = "black", size=3.0) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),limits = c(0,0.38)) +
+  scale_x_date(labels = date_format("%Y-%b"),breaks='2 years') +
+  geom_vline(xintercept=as.numeric(a$trimestre[62]), linetype="dashed", color = "#bbbbbb", size=1) +
+  geom_vline(xintercept=as.numeric(a$trimestre[122]), linetype="dashed", color = "#bbbbbb", size=1) +
+  theme(legend.position="bottom")
+
+ggsave(plot = last_plot(),
+       filename = "Output/Gráfico2_porcentaje_extr_parcial_adentro_bn.png",
+       device = "png",
+       dpi = "retina",
+       units = "cm",
+       width = 30,
+       height = 25)
 

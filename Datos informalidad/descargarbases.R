@@ -160,5 +160,6 @@ download.file("https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/b
 download.file("https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/2020/formato-csv/ene-2020-12-nde.csv?sfvrsn=9b37554c_11&download=true",destfile = "Input/ene2020_12.csv",method = "libcurl")
 
 #2021
-#download.file("https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/2020/formato-csv/ene-2021-01-def.csv?sfvrsn=9b37554c_11&download=true",destfile = "Input/ene2021_01.csv",method = "libcurl")
+download.file("https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/2021/formato-csv/ene-2021-01-def.csv?sfvrsn=9b37554c_11&download=true",destfile = "Input/ene2021_01.csv",method = "libcurl")
+download.file("https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/2021/formato-csv/ene-2021-02-efm.csv?sfvrsn=9b37554c_11&download=true",destfile = "Input/ene2021_02.csv",method = "libcurl")
 
