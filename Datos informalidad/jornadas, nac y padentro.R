@@ -12,7 +12,7 @@ get(load('Output/bases_INE_informalidad_2021.Rdata'))
 
 
 
-
+remove(a,adentro,b,base,c,dfs,extranjeras,parcial,i)
 
 #### Parcial ####
 

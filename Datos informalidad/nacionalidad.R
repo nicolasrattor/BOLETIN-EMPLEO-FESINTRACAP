@@ -1,3 +1,4 @@
+remove(a,adentro,b,base,c,dfs,extranjeras,parcial,i)
 
 library(tidyverse)
 
