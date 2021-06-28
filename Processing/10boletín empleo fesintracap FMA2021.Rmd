@@ -246,7 +246,7 @@ Este boletín ha sido elaborado por los asesores técnicos de la Federación Nac
 - [Nicolás Ratto Ribó](mailto:"nicolas.ratto@ug.uchile.cl")
   - Sociólogo y magíster en Ciencias Sociales, Universidad de Chile.
 
-- [Valentina Andrade de la Horra](mailto:"valentina.vasquez.a@uchile.cl")
-  - Licenciada en Sociología, Universidad de Chile.
+- [Valentina Andrade de la Horra](mailto:"valentinaandrade@uchile.cl")
+  - Socióloga, Universidad de Chile.
   
 El repositorio de los informes se puede consultar en [Github](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP).
