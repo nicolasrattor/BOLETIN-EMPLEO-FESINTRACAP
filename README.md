@@ -9,7 +9,7 @@ Esto, con el objeto de promover el empleo de calidad y la seguridad económica d
 
 ## Autores
 
-**Nicolás Ratto Ribó**
+**Nicolás Ratto**
 Sociólogo y magíster en ciencias sociales, Universidad de Chile
 
 GitHub: [github.com/nicolasrattor](github.com/nicolasrattor)
@@ -20,6 +20,8 @@ Licenciada en Sociología, Universidad de Chile.
 GitHub: [github.com/valentinaanadrade](github.com/valentinaanadrade)
 
 ## Informes
+
+[Informe N°11. Marzo - Mayo](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(11)%20bolet%C3%ADn-empleo-fesintracap-MAM2021.pdf).
 
 [Informe N°10. Febrero - Abril](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(10)%20bolet%C3%ADn-empleo-fesintracap-FMA2021.pdf).
 

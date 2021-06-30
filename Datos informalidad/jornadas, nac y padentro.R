@@ -332,3 +332,5 @@ ggsave(plot = last_plot(),
        width = 30,
        height = 25)
 
+writexl::write_xlsx(a,"Output/Datos RIED/datos_grafico_informales_3series.xlsx")
+
