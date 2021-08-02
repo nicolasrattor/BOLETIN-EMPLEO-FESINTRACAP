@@ -21,6 +21,8 @@ GitHub: [github.com/valentinaanadrade](github.com/valentinaanadrade)
 
 ## Informes
 
+[Informe N°12. Abril - Junio](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(12)%20bolet%C3%ADn-empleo-fesintracap-AMJ2021.pdf).
+
 [Informe N°11. Marzo - Mayo](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(11)%20bolet%C3%ADn-empleo-fesintracap-MAM2021.pdf).
 
 [Informe N°10. Febrero - Abril](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(10)%20bolet%C3%ADn-empleo-fesintracap-FMA2021.pdf).

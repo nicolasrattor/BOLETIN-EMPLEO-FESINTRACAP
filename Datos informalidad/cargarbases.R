@@ -295,8 +295,10 @@ ene2021_01<-read.csv("Input/ene2021_01.csv",sep = ";")
 ene2021_02<-read.csv("Input/ene2021_02.csv",sep = ";")
 ene2021_03<-read.csv("Input/ene2021_03.csv",sep = ";")
 ene2021_04<-read.csv("Input/ene2021_04.csv",sep = ";")
+ene2021_05<-read.csv("Input/ene2021_05.csv",sep = ";")
 
 save(ene2021_01,
      ene2021_02,
      ene2021_03,
-     ene2021_04, file="Output/bases_INE_informalidad_2021.Rdata")
+     ene2021_04,
+     ene2021_05, file="Output/bases_INE_informalidad_2021.Rdata")

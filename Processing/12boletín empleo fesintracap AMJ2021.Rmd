@@ -1,0 +1,255 @@
+---
+title: "BOLETÍN TRIMESTRE ABRIL-JUNIO 2021"
+author: "OBSERVATORIO CALIDAD DEL EMPLEO TRABAJADORAS DE CASA PARTICULAR"
+date: "Chile. Edición nº 12"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc_depth: '4'
+    fig_caption: yes  
+header-includes:
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=2in,height=2in]{../Input/Images/fesintracap.jpg}\LARGE\\}
+  - \posttitle{\end{center}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2); theme_set(theme_bw() + theme(legend.position="bottom",
+      axis.text=element_text(size=13),
+      axis.title=element_text(size=14,face="bold"),
+      plot.title = element_text(size=14,face="bold")))
+
+options(scipen=999)
+
+library(knitr)
+knit_hooks$set(inline = function(x) {
+  prettyNum(x, 
+            big.mark=".",
+            decimal.mark = ",")
+})
+```
+
+
+
+```{r include=FALSE, message = FALSE, warning = FALSE}
+## Anotar cuestiones generales
+mes_central<-"mayo"
+n_boletin<-"duodécimo"
+
+```
+
+
+
+El presente boletín es el `r n_boletin` de una serie de informes elaborados por la **Federación de Trabajadoras de Casa Particular de Chile**. Estos buscan monitorear la situación y evolución del empleo en el sector del servicio doméstico remunerado, con el propósito de promover el empleo de calidad y la seguridad económica para el sector, sobre todo frente a los impactos que ha generado la pandemia del COVID-19 sobre las trabajadoras de casa particular. En esta primera edición se grafican y analizan los datos de la [**Encuesta Nacional de Empleo del Instituto Nacional de Estadísticas**](https://www.ine.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion), particularmente los que refieren al número de ocupados en el sector y al número de informales dentro del mismo.
+
+```{r include=FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(readxl)
+library(srvyr)
+library(dplyr)
+library(survey)
+library(ggpubr)
+library(haven)
+library(lubridate)
+library(scales)
+library(ggrepel)
+library(openxlsx)
+```
+
+```{r  include=FALSE, message = FALSE, warning = FALSE}
+#AMJ<-read_excel("../Input/Tabulados ENE/serie.xlsx",sheet = 4)
+
+AMJ<-read.xlsx("http://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/cuadros-estadisticos/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/serie-categor%C3%ADa-en-la-ocupaci%C3%B3n.xlsx?sfvrsn=70dc54db_24",sheet = 4)
+
+colnames(AMJ)<-AMJ[3,]
+AMJ<-AMJ[c(7:(nrow(AMJ)-9)),c(1,2,4,6,8,10,12,14,16,18,20,22,24,26)]
+
+colnames(AMJ)<-c("ano",
+                 "trimestre",
+                 "ocupados",
+                 "independientes",
+                 "independientes_empleadores)",
+                 "independientes_cuenta_propia",
+                 "independientes_familiar",
+                 "dependientes",
+                 "asalariados",
+                 "asalariados_privado",
+                 "asalariados_publico",
+                 "TCP",
+                 "TCP_afuera",
+                 "TCP_adentro")
+
+AMJ<-AMJ %>% mutate(mes=case_when(trimestre == "Ene - Mar"~ 2,
+                             trimestre == "Feb - Abr"~ 3,
+                             trimestre == "Mar - May"~ 4,
+                             trimestre == "Abr - Jun"~ 5,
+                             trimestre == "May -Jul"~ 6,
+                             trimestre == "Jun - Ago"~ 7,
+                             trimestre == "Jul - Sep"~ 8,
+                             trimestre == "Ago - Oct"~ 9,
+                             trimestre == "Sep - Nov"~ 10,
+                             trimestre == "Oct - Dic"~ 11,
+                             trimestre == "Nov - Ene"~ 12,
+                             trimestre == "Dic - Feb"~  1))
+
+
+AMJ<-AMJ %>% mutate(t=ymd(paste(ano,"-",mes,"-",1,sep="")))
+
+AMJ
+```
+
+```{r include=FALSE, message = FALSE, warning = FALSE}
+#inf<-read_excel("../Input/Tabulados Informalidad/serie2.xlsx",sheet = 4)
+
+inf<-read.xlsx("https://www.ine.cl/docs/default-source/informalidad-y-condiciones-laborales/cuadros-estadisticos/series-trimestrales/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/ocupados-formales-e-informales-por-categor%C3%ADa-en-la-ocupaci%C3%B3n.xlsx?sfvrsn=ee2da3dd_31",sheet = 4)
+
+inf<-inf[c(7:(nrow(inf)-6)),c(1,2,4,6,8,10,12,14,16,18,20,22,24,26,28)]
+
+colnames(inf)<-c("ano",
+                 "trimestre",
+                 "Total de ocupados (formales)",
+                 "Empleadores (formales)",
+                 "Trabajadores por cuenta propia (formales)",
+                 "Asalariados del sector privado (formales)",
+                 "Asalariados del sector público (formales)",
+                 "TCP_formal",
+                 "Total de ocupados (informales)",		
+                 "Empleadores (informales)"		,
+                 "Trabajadores por cuenta propia (informales)",
+                 "Trabajadores familiares no remunerados (informales)",
+                 "Asalariados del sector privado (informales)",
+                 "Asalariados del sector público (informales)",
+                 "TCP_informal")
+
+inf<-inf %>% mutate(mes=case_when(trimestre == "Ene - Mar"~ 2,
+                                  trimestre == "Feb - Abr"~ 3,
+                                  trimestre == "Mar - May"~ 4,
+                                  trimestre == "Abr - Jun"~ 5,
+                                  trimestre == "May -Jul"~ 6,
+                                  trimestre == "Jun - Ago"~ 7,
+                                  trimestre == "Jul - Sep"~ 8,
+                                  trimestre == "Ago - Oct"~ 9,
+                                  trimestre == "Sep - Nov"~ 10,
+                                  trimestre == "Oct - Dic"~ 11,
+                                  trimestre == "Nov - Ene"~ 12,
+                                  trimestre == "Dic - Feb"~  1))
+
+
+inf<-inf %>% mutate(t=ymd(paste(ano,"-",mes,"-",1,sep="")))
+
+```
+
+Como principales resultados se pueden destacar:
+
+> En un año las trabajadoras de casa particular ocupadas han aumentado en un `r round((((round(as.numeric(AMJ[nrow(AMJ),12])*1000))-(round(as.numeric(AMJ[nrow(AMJ)-12,12])*1000)))/(round(as.numeric(AMJ[nrow(AMJ)-12,12])*1000)))*100,1)`%. Si a inicios de 2020 estas eran `r round(as.numeric(AMJ[nrow(AMJ)-12,12])*1000)` a lo largo de Chile, actualmente estas llegan a `r round(as.numeric(AMJ[nrow(AMJ),12])*1000)`, recuperando parte del empleo perdido desde el inicio de la pandemia. Respecto al trimestre anterior, se observa una leve caída en la ocupación (`r round((((round(as.numeric(AMJ[nrow(AMJ),12])*1000))-(round(as.numeric(AMJ[nrow(AMJ)-1,12])*1000)))/(round(as.numeric(AMJ[nrow(AMJ)-1,12])*1000)))*100,1)`%), que afecta con más fuerza a las formales que a las informales.
+
+> La recuperación de la ocupación en el sector es clara desde junio 2020, pero la mayor parte de esta recuperación se explica por la recuperación del empleo informal. En el sector informal, desde junio de 2020 hasta la fecha se crearon `r round((as.numeric(inf[nrow(inf),15])-as.numeric(inf[nrow(inf)-11,15]))*1000)` puestos de trabajo, mientras que en el formal estos han aumentado en cerca de `r round((as.numeric(inf[nrow(inf),8])-as.numeric(inf[nrow(inf)-11,8]))*1000)`.
+
+
+\newpage
+
+# Empleo Nacional
+
+```{r include=FALSE, message = FALSE, warning = FALSE}
+
+#### TCP general, adentro y afuera -   con   scale_x_date() ####
+
+g1<-AMJ %>%
+  select(t,trimestre,TCP,TCP_afuera,TCP_adentro) %>% gather(categoria,trabajadores,-c(t,trimestre)) %>%
+  mutate(trabajadores=as.numeric(trabajadores)*1000) %>%
+  ggplot(aes( x = t, y = trabajadores, fill = categoria, color = categoria)) +
+  geom_line() + geom_point()  +
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE)) +
+  scale_x_date(labels = date_format("%Y-%m"),
+               breaks='1 years') + labs(x="Tiempo",
+       y = "Trabajadoras",
+       caption = "Elaboración propia en base a Encuesta Nacional de Empleo del INE") +
+  scale_color_manual(values = c("purple","black","red")) + 
+  geom_text_repel(aes(label=ifelse(trimestre=="Abr - Jun", format(round(trabajadores), big.mark = ".", scientific = FALSE),"")),
+            vjust=-0.4, colour = "black", size=6.0)
+
+ggsave(plot = g1,
+  filename = "../Output/Gráficos/Gráfico1_AMJ2021.png",
+  device = "png",
+  dpi = "retina",
+  units = "cm",
+  width = 30,
+  height = 25)
+
+```
+
+
+Desde `r mes_central` de 2020 a `r mes_central` de 2021 las trabajadoras ocupadas en el sector aumentan en un `r round((((round(as.numeric(AMJ[nrow(AMJ),12])*1000))-(round(as.numeric(AMJ[nrow(AMJ)-12,12])*1000)))/(round(as.numeric(AMJ[nrow(AMJ)-12,12])*1000)))*100,1)`%. En otras palabras, solo `r round(as.numeric(AMJ[nrow(AMJ),12])*1000)-round(as.numeric(AMJ[nrow(AMJ)-12,12])*1000)` trabajadoras han recuperado el empleo en un año (Gráfico 1), de las más de 100.000 trabajadoras que lo perdieron desde el inicio de la pandemia. La tasa de disminución de las ocupadas puertas adentro (color verde) y puertas afuera (color azul) es similar en el último año. Actualmente a nivel nacional se registran `r round(as.numeric(AMJ[nrow(AMJ),14])*1000)` trabajadores puertas adentro y `r round(as.numeric(AMJ[nrow(AMJ),13])*1000)` trabajadoras puertas afuera trabajando.
+
+![Número de trabajadoras de casa particular ocupadas desde 2010 a 2021. Total, puertas adentro y puertas afuera](../Output/Gráficos/Gráfico1_AMJ2021.png)
+
+
+\newpage
+# Informalidad Nacional
+
+```{r include=FALSE, message = FALSE, warning = FALSE}
+
+g2<-inf %>%
+  select(t,trimestre,
+         TCP_formal,
+         TCP_informal) %>%
+  gather(categoria,trabajadores,-c(t,trimestre)) %>%
+  mutate(trabajadores=as.numeric(trabajadores)*1000) %>%
+  ggplot(aes( x = t, y = trabajadores, fill = categoria, color = categoria)) +
+  geom_line() + geom_point() +
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE)) +
+  scale_x_date(labels = date_format("%Y-%m"),
+               breaks='1 years') +
+    scale_color_manual(values = c("purple","black","red")) + 
+  labs(x="Tiempo",
+       y = "Trabajadoras",
+       caption = "Elaboración propia en base a Encuesta Nacional de Empleo del INE") +
+  geom_text_repel(aes(label=ifelse(trimestre%in%c("Abr - Jun","Ago - Oct"), 
+                                   format(round(trabajadores), big.mark = ".", scientific = FALSE),"")),
+                  vjust=-0.4, colour = "black", size=6.0)
+
+ggsave(plot = g2,
+  filename = "../Output/Gráficos/Gráfico2_AMJ2021.png",
+  device = "png",
+  dpi = "retina",
+  units = "cm",
+  width = 30,
+  height = 25)
+
+```
+
+
+En el último año las trabajadoras de casa particular informales han aumentado en la ocupación (`r round((as.numeric(inf[nrow(inf),15])-as.numeric(inf[nrow(inf)-12,15]))/as.numeric(inf[nrow(inf)-12,15])*100,1)`%), pasando de `r round(as.numeric(inf[nrow(inf)-12,15])*1000)` trabajadoras a `r round(as.numeric(inf[nrow(inf),15])*1000)` trabajadoras. En contrastre, el porcentaje de trabajadoras formales se ha mantenido estable en el último año (`r round((as.numeric(inf[nrow(inf)-12,8])-as.numeric(inf[nrow(inf),8]))/as.numeric(inf[nrow(inf)-12,8])*100,1)`%), pasando de `r round(as.numeric(inf[nrow(inf)-12,8])*1000)` a `r round(as.numeric(inf[nrow(inf),8])*1000)` trabajadoras. Las trabajadoras formales están lejos de recuperar los niveles de empleo de antes de la pandemia. 
+
+
+![Número de trabajadoras de casa particular formales e informales entre 2018 y 2021](../Output/Gráficos/Gráfico2_AMJ2021.png)
+
+
+$$\\[1in]$$
+
+
+# Informalidad comparada en los últimos 11 años
+
+Hasta antes del inicio de la pandemia, existía una alta informalidad en el trabajo doméstico que se mantenía relativamente estable en torno al 50% de las trabajadoras. Sin embargo, llama la atención una baja discreta luego de la entrada en vigor de la Ley 20.786 (marzo 2015), en donde se observa una disminución temporal de la informalidad en el sector de cerca de un 10%. Esta situación es muy diferente a la de las asalariadas del sector privado, las que se mantienen con una informalidad estable en torno al 17% durante los años 2015 y 2016. Sin embargo, desde inicios del año 2018 la informalidad en el sector vuelve a aumentar, pareciendo haber retornado a los niveles anteriores al año 2015 hasta el inicio de la pandemia. En el siguiente gráfico, extraído de [Gerónimo, et al. (2021)](https://nicolasrattor.github.io/prepint_persistente_informalidad/), se puede observar la evolución de los porcentajes de informalidad en el grupos de las trabajadoras del servicio doméstico (línea negra) y de las asalariadas del sector privado (línea morada). Desde el inicio de la pandemia la informalidad en el sector de las trabajadoras del servicio doméstico baja por la caída en la ocupación de este subsector informal, en una proporción superior a la del subsector formal. Desde diciembre de 2020 el porcentaje de informales en el subsector informal del servicio doméstico remunerado aumenta a poco más del 45%, manteniéndose sobre este nivel hasta febrero de 2021, para volver a bajar a cerca de un 40% desde marzo 2021. 
+
+![Porcentaje de trabajadoras informales en el sector del servicio doméstico y asalariadas sector privado](../Datos informalidad/Output/Gráfico_informales_porcentaje_comparado.PNG)
+
+
+
+
+
+\newpage
+
+# Autores
+
+Este boletín ha sido elaborado por los asesores técnicos de la Federación Nacional de Sindicatos de Trabajadoras de Casa Particular.
+
+- [Nicolás Ratto](mailto:"nicolas.ratto@ug.uchile.cl")
+  - Sociólogo y magíster en Ciencias Sociales, Universidad de Chile.
+
+- [Valentina Andrade de la Horra](mailto:"valentinaandrade@uchile.cl")
+  - Socióloga, Universidad de Chile.
+  
+El repositorio de los informes se puede consultar en [Github](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP).
