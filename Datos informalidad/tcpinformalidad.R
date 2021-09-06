@@ -1,9 +1,10 @@
 
 library(tidyverse)
-
+gc()
 ## Cargar bases
-get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
-get(load('Output/bases_INE_informalidad_2021.Rdata'))
+get(load('Output/bases_ENE_2010_2015.Rdata'))
+get(load('Output/bases_ENE_2016_2020.Rdata'))
+get(load('Output/bases_ENE_2021.Rdata'))
 
 
 ## TCP mujeres
@@ -114,7 +115,7 @@ base<-base %>% mutate(porcentaje_informales=round(informales_tcp_mujeres/tcp_muj
 
 ## Exportar base
 library(writexl)
-write_xlsx(base,"Output/tcp_mujeres_informalidad.xlsx", col_names = TRUE,format_headers = TRUE)
+write_xlsx(base,"Output/Tabulados/tcp_mujeres_informalidad.xlsx", col_names = TRUE,format_headers = TRUE)
 
 
 
@@ -130,7 +131,7 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point
        caption = "Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea azul indica cambio de metodología. Desde ese punto cifras oficiales.
                   Línea morada indica inicio del COVID-19 en Chile.") +
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(5), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6), 
                                format(paste0(round(porcentaje_informales,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
@@ -143,7 +144,7 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_informales_porcentaje.png",
+       filename = "Output/Graficos/Gráfico_informales_porcentaje.png",
        device = "png",
        dpi = "retina",
        units = "cm",
@@ -159,7 +160,7 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point
     caption = "Marzo de 2015 entrada en vigencia de Ley 20.786.
                 Agosto de 2017 cambio de metodología. Desde ese punto cifras oficiales.
                 Marzo de 2020 inicio del COVID-19 en Chile.") +
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(5), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6), 
                                      format(paste0(round(porcentaje_informales,3)*100,"%"),
                                             scientific = FALSE),"")), 
                   position = position_dodge(0.9), 
@@ -172,7 +173,7 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_informales_porcentaje_bn.png",
+       filename = "Output/Graficos/Gráfico_informales_porcentaje_bn.png",
        device = "png",
        dpi = "retina",
        units = "cm",

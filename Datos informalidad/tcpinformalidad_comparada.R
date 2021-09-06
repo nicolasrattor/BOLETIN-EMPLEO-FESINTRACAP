@@ -1,9 +1,10 @@
 
 library(tidyverse)
-
+gc()
 ## Cargar bases
-get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
-get(load('Output/bases_INE_informalidad_2021.Rdata'))
+get(load('Output/bases_ENE_2010_2015.Rdata'))
+get(load('Output/bases_ENE_2016_2020.Rdata'))
+get(load('Output/bases_ENE_2021.Rdata'))
 
 ## TCP mujeres
 ## De esta forma la ENE calcula a las TCP: 184.440
@@ -146,7 +147,7 @@ base<-base %>% mutate(porcentaje_asalariadas_informales=round(informales_asalari
 
 ## Exportar base
 library(writexl)
-write_xlsx(base,"Output/tcp_mujeres_informalidad_asalariadas_privadas.xlsx", col_names = TRUE,format_headers = TRUE)
+write_xlsx(base,"Output/Tabulados/tcp_mujeres_informalidad_asalariadas_privadas.xlsx", col_names = TRUE,format_headers = TRUE)
 
 
 
@@ -171,7 +172,7 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
                   Línea morada indica inicio del COVID-19 en Chile.") +
   scale_color_manual("Trabajadoras", values = c("purple","black"),labels = c("Asalariadas sector privado",
                                                                              "Asalariadas Servicio doméstico")) + 
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(5), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6), 
                                format(paste0(round(value,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
@@ -186,7 +187,7 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_informales_porcentaje_comparado.png",
+       filename = "Output/Graficos/Grafico_informales_porcentaje_comparado.png",
        device = "png",
        dpi = "retina",
        units = "cm",
@@ -207,7 +208,7 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
               Marzo de 2020 inicio del COVID-19 en Chile.") +
   scale_color_manual("Trabajadoras", values = c("#a3a3a3","black"),labels = c("Asalariadas sector privado",
                                                                              "Asalariadas Servicio doméstico")) + 
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(5), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6), 
                                      format(paste0(round(value,3)*100,"%"),
                                             scientific = FALSE),"")), 
                   position = position_dodge(0.9), 
@@ -221,7 +222,7 @@ base %>% pivot_longer(c(porcentaje_tcp_informales,porcentaje_asalariadas_informa
   theme(legend.position="bottom")
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_informales_porcentaje_comparado_bn.png",
+       filename = "Output/Graficos/Gráfico_informales_porcentaje_comparado_bn.png",
        device = "png",
        dpi = "retina",
        units = "cm",

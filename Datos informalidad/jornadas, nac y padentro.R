@@ -6,10 +6,6 @@ library(ggrepel)
 library(scales)
 
 
-## Cargar bases
-get(load('Output/bases_INE_informalidad_2010-2020.Rdata'))
-get(load('Output/bases_INE_informalidad_2021.Rdata'))
-
 
 
 remove(a,adentro,b,base,c,dfs,extranjeras,parcial,i)
@@ -142,7 +138,7 @@ extranjeras %>% ggplot(aes(x=trimestre,y=porcentaje_extranjeras))+geom_line()+ge
        caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020).
                   Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea morada indica inicio del COVID-19 en Chile.") +
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(5,10), 
+  geom_text_repel(aes(label = ifelse(mes_central %in% c(6,11), 
                                      format(paste0(round(porcentaje_extranjeras,3)*100,"%"),
                                             scientific = FALSE),"")), 
                   position = position_dodge(0.9), 
@@ -218,7 +214,7 @@ adentro %>%
        caption = "Fuente: Elaboración propia en base a Encuesta Nacional de Empleo (2010-2020) del INE.
                   Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea morada indica inicio del COVID-19 en Chile") +
-  geom_text(aes(label = ifelse(mes_central %in% c(5,10), 
+  geom_text(aes(label = ifelse(mes_central %in% c(6,11), 
                                format(paste0(round(porcentaje_adentro,3)*100,"%"),
                                       scientific = FALSE),"")), 
             position = position_dodge(0.9), 
@@ -231,7 +227,7 @@ adentro %>%
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico_porcentaje_p_adentro.png",
+       filename = "Output/Graficos/Gráfico_porcentaje_p_adentro.png",
        device = "png",
        dpi = "retina",
        units = "cm",
@@ -287,7 +283,7 @@ a %>% pivot_longer(c(porcentaje_adentro,porcentaje_extranjeras,porcentaje_partim
 
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico2_porcentaje_extr_parcial_adentro.png",
+       filename = "Output/Graficos/Gráfico2_porcentaje_extr_parcial_adentro.png",
        device = "png",
        dpi = "retina",
        units = "cm",
@@ -325,7 +321,7 @@ a %>% pivot_longer(c(porcentaje_adentro,porcentaje_extranjeras,porcentaje_partim
   theme(legend.position="bottom")
 
 ggsave(plot = last_plot(),
-       filename = "Output/Gráfico2_porcentaje_extr_parcial_adentro_bn.png",
+       filename = "Output/Graficos/Gráfico2_porcentaje_extr_parcial_adentro_bn.png",
        device = "png",
        dpi = "retina",
        units = "cm",
