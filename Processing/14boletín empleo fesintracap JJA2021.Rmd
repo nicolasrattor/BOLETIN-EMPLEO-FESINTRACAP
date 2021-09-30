@@ -62,7 +62,7 @@ library(openxlsx)
 ```{r  include=FALSE, message = FALSE, warning = FALSE}
 #ocup<-read_excel("../Input/Tabulados ENE/serie.xlsx",sheet = 4)
 
-ocup<-read.xlsx("http://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/cuadros-estadisticos/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/serie-categor%C3%ADa-en-la-ocupaci%C3%B3n.xlsx?sfvrsn=70dc54db_24",sheet = 4)
+ocup<-read.xlsx("https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/cuadros-estadisticos/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/categoria.xlsx?sfvrsn=70dc54db_57",sheet = 4)
 
 colnames(ocup)<-ocup[3,]
 ocup<-ocup[c(7:(nrow(ocup)-9)),c(1,2,4,6,8,10,12,14,16,18,20,22,24,26)]
@@ -104,7 +104,7 @@ ocup
 ```{r include=FALSE, message = FALSE, warning = FALSE}
 #inf<-read_excel("../Input/Tabulados Informalidad/serie2.xlsx",sheet = 4)
 
-inf<-read.xlsx("https://www.ine.cl/docs/default-source/informalidad-y-condiciones-laborales/cuadros-estadisticos/series-trimestrales/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/ocupados-formales-e-informales-por-categor%C3%ADa-en-la-ocupaci%C3%B3n.xlsx?sfvrsn=ee2da3dd_31",sheet = 4)
+inf<-read.xlsx("https://www.ine.cl/docs/default-source/informalidad-y-condiciones-laborales/cuadros-estadisticos/series-trimestrales/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/informalidad_grupo.xlsx?sfvrsn=d24bf24c_60",sheet = 4)
 
 inf<-inf[c(7:(nrow(inf)-6)),c(1,2,4,6,8,10,12,14,16,18,20,22,24,26,28)]
 
@@ -178,12 +178,17 @@ ggsave(plot = g1,
   width = 30,
   height = 25)
 
+link <- paste0("../Output/Gráficos/Gráfico1_",AAA,".png")
 ```
 
 
 Desde `r mes_central` de 2020 a `r mes_central` de 2021 las trabajadoras ocupadas en el sector aumentan en un `r round((((round(as.numeric(ocup[nrow(ocup),12])*1000))-(round(as.numeric(ocup[nrow(ocup)-12,12])*1000)))/(round(as.numeric(ocup[nrow(ocup)-12,12])*1000)))*100,1)`%. En otras palabras, solo `r round(as.numeric(ocup[nrow(ocup),12])*1000)-round(as.numeric(ocup[nrow(ocup)-12,12])*1000)` trabajadoras han recuperado el empleo en un año (Gráfico 1), de las más de 100.000 trabajadoras que lo perdieron desde el inicio de la pandemia. La tasa de disminución de las ocupadas puertas adentro (color verde) y puertas afuera (color azul) es similar en el último año. Actualmente a nivel nacional se registran `r round(as.numeric(ocup[nrow(ocup),14])*1000)` trabajadores puertas adentro y `r round(as.numeric(ocup[nrow(ocup),13])*1000)` trabajadoras puertas afuera trabajando.
 
-![Número de trabajadoras de casa particular ocupadas desde 2010 a 2021. Total, puertas adentro y puertas afuera](../Output/Gráficos/Gráfico1_JJA2021.png)
+```{r fig.align='center', out.width = "100%", echo=FALSE, fig.cap="Número de trabajadoras de casa particular ocupadas desde 2010 a 2021. Total, puertas adentro y puertas afuera"}
+a<-paste0("../Output/Gráficos/Gráfico1_",AAA,".png")
+knitr::include_graphics(a)
+```
+
 
 
 \newpage
@@ -211,7 +216,7 @@ g2<-inf %>%
                   vjust=-0.4, colour = "black", size=6.0)
 
 ggsave(plot = g2,
-  filename = "../Output/Gráficos/Gráfico2_JJA2021.png",
+  filename = paste0("../Output/Gráficos/Gráfico2_",AAA,".png"),
   device = "png",
   dpi = "retina",
   units = "cm",
@@ -223,8 +228,10 @@ ggsave(plot = g2,
 
 En el último año las trabajadoras de casa particular informales han aumentado en la ocupación (`r round((as.numeric(inf[nrow(inf),15])-as.numeric(inf[nrow(inf)-12,15]))/as.numeric(inf[nrow(inf)-12,15])*100,1)`%), pasando de `r round(as.numeric(inf[nrow(inf)-12,15])*1000)` trabajadoras a `r round(as.numeric(inf[nrow(inf),15])*1000)` trabajadoras. En contrastre, el porcentaje de trabajadoras formales se ha mantenido relativamente estable en el último año (`r round((as.numeric(inf[nrow(inf),8])-as.numeric(inf[nrow(inf)-12,8]))/as.numeric(inf[nrow(inf)-12,8])*100,1)`%), pasando de `r round(as.numeric(inf[nrow(inf)-12,8])*1000)` a `r round(as.numeric(inf[nrow(inf),8])*1000)` trabajadoras. Las trabajadoras formales están lejos de recuperar los niveles de empleo de antes de la pandemia. 
 
-
-![Número de trabajadoras de casa particular formales e informales entre 2018 y 2021](../Output/Gráficos/Gráfico2_JJA2021.png)
+```{r fig.align='center', out.width = "100%", echo=FALSE, fig.cap="Número de trabajadoras de casa particular formales e informales entre 2018 y 2021"}
+a<-paste0("../Output/Gráficos/Gráfico2_",AAA,".png")
+knitr::include_graphics(a)
+```
 
 
 $$\\[1in]$$

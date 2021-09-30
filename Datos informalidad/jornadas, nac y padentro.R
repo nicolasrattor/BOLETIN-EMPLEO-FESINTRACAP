@@ -100,11 +100,12 @@ extranjeras<-extranjeras %>% filter(periodo!=c("dfs","parcial"))
 extranjeras<-extranjeras %>% mutate(tcp_mujeres=NA)
 extranjeras<-extranjeras %>% mutate(tcp_mujeres_extr=NA)
 
+table(ene2020_07$nacionalidad)
 
 for (i in 1:nrow(extranjeras)){
   extranjeras[i,2]<-dfs[[i]] %>% as.data.frame() %>% filter(b5==3 & (b6==1|b6==2)) %>% filter(sexo==2) %>% select(fact_cal) %>% sum()
   
-  dfs[[i]] <- dfs[[i]] %>% mutate(nac_2=case_when(nacionalidad==0~0,TRUE~1))
+  dfs[[i]] <- dfs[[i]] %>% mutate(nac_2=case_when(nacionalidad==0|nacionalidad==152~0,TRUE~1))
   
   extranjeras[i,3]<-dfs[[i]] %>% as.data.frame() %>% filter(b5==3 & (b6==1|b6==2)) %>% filter(sexo==2&nac_2==1) %>% select(fact_cal) %>% sum()
   

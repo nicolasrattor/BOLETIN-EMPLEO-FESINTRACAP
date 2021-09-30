@@ -15,11 +15,13 @@ Sociólogo y magíster en ciencias sociales, Universidad de Chile
 GitHub: [github.com/nicolasrattor](github.com/nicolasrattor)
 
 **Valentina Andrade de la Horra**
-Licenciada en Sociología, Universidad de Chile.
+Socióloga, Universidad de Chile.
 
 GitHub: [github.com/valentinaanadrade](github.com/valentinaanadrade)
 
 ## Informes
+
+[Informe N°14. Junio - Agosto](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(13)%20bolet%C3%ADn-empleo-fesintracap-JJA2021.pdf).
 
 [Informe N°13. Mayo - Julio](https://github.com/nicolasrattor/BOLETIN-EMPLEO-FESINTRACAP/raw/master/Processing/(13)%20bolet%C3%ADn-empleo-fesintracap-MJJ2021.pdf).
 

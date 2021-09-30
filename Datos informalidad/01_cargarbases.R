@@ -302,10 +302,12 @@ ene2021_03<-read.csv("Input/ene2021_03.csv",sep = ";")
 ene2021_04<-read.csv("Input/ene2021_04.csv",sep = ";")
 ene2021_05<-read.csv("Input/ene2021_05.csv",sep = ";")
 ene2021_06<-read.csv("Input/ene2021_06.csv",sep = ";")
+ene2021_07<-read.csv("Input/ene2021_07.csv",sep = ";")
 
 save(ene2021_01,
      ene2021_02,
      ene2021_03,
      ene2021_04,
      ene2021_05,
-     ene2021_06, file="Output/bases_ENE_2021.Rdata")
+     ene2021_06,
+     ene2021_07, file="Output/bases_ENE_2021.Rdata")

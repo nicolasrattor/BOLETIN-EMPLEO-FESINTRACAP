@@ -131,7 +131,7 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point
        caption = "Línea roja indica entrada en vigencia de Ley 20.786.
                   Línea azul indica cambio de metodología. Desde ese punto cifras oficiales.
                   Línea morada indica inicio del COVID-19 en Chile.") +
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(6), 
+  geom_text(aes(label = ifelse(mes_central %in% c(7), 
                                format(paste0(round(porcentaje_informales,3)*100,"%"),
                                 scientific = FALSE),"")), 
             position = position_dodge(0.9), 
@@ -160,7 +160,7 @@ base %>% ggplot(aes(x=trimestre,y=porcentaje_informales))+geom_line()+geom_point
     caption = "Marzo de 2015 entrada en vigencia de Ley 20.786.
                 Agosto de 2017 cambio de metodología. Desde ese punto cifras oficiales.
                 Marzo de 2020 inicio del COVID-19 en Chile.") +
-  geom_text_repel(aes(label = ifelse(mes_central %in% c(6), 
+  geom_text(aes(label = ifelse(mes_central %in% c(7), 
                                      format(paste0(round(porcentaje_informales,3)*100,"%"),
                                             scientific = FALSE),"")), 
                   position = position_dodge(0.9), 
