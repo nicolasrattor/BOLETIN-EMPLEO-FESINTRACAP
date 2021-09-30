@@ -104,7 +104,7 @@ ocup
 ```{r include=FALSE, message = FALSE, warning = FALSE}
 #inf<-read_excel("../Input/Tabulados Informalidad/serie2.xlsx",sheet = 4)
 
-inf<-read.xlsx("https://www.ine.cl/docs/default-source/informalidad-y-condiciones-laborales/cuadros-estadisticos/series-trimestrales/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/informalidad_grupo.xlsx?sfvrsn=d24bf24c_60",sheet = 4)
+inf<-read.xlsx("https://www.ine.cl/docs/default-source/informalidad-y-condiciones-laborales/cuadros-estadisticos/series-trimestrales/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/informalidad_categoria.xlsx?sfvrsn=ee2da3dd_64",sheet = 4)
 
 inf<-inf[c(7:(nrow(inf)-6)),c(1,2,4,6,8,10,12,14,16,18,20,22,24,26,28)]
 
